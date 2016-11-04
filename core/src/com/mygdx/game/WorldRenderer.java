@@ -15,6 +15,7 @@ public class WorldRenderer {
 	private BitmapFont font;
 	private tks tks;
 	public SpriteBatch batch;
+	private Texture bg;
 	private Texture shipPic;
 	private World world;
 	private Texture bulletPic;
@@ -27,6 +28,7 @@ public class WorldRenderer {
 			this.tks = tks;
 			this.world = world;
 			batch = tks.batch;
+			bg = new Texture("Bg.jpg");
 			shipPic = new Texture("Ship.png");
 			bulletPic = new Texture("Bullet.png");
 			bossPic = new Texture("boss.png");
@@ -35,6 +37,7 @@ public class WorldRenderer {
 	public void render(){
 		SpriteBatch batch = tks.batch;
 		batch.begin();
+		batch.draw(bg, 0, 0,tks.WIDTH,tks.HEIGHT);
 		bullet = world.getBullet();
 		for(Bullet i : bullet )
 		{
