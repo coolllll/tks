@@ -11,6 +11,7 @@ public class Ship {
 	private int state = 1;
 	private Vector2 position;
 	private World world;
+	private boolean devMode = false;
 	public static final int DIRECTION_UP = 3;
 	public static final int DIRECTION_RIGHT = 2;
 	public static final int DIRECTION_DOWN = 1;
@@ -28,11 +29,11 @@ public class Ship {
 
 	public void move(int dir) {
 		float nextX = position.x + speed * DIR_OFFSETS[dir][0];
-		float nextY = position.y += speed * DIR_OFFSETS[dir][1];
-		if (nextX >= 0 && nextX + width < Tks.WIDTH - Boss.width - 20) {
+		float nextY = position.y + speed * DIR_OFFSETS[dir][1];
+		if ((nextX >= 0 && nextX + width < Tks.WIDTH - Boss.width - 20) || devMode) {
 			position.x = nextX;
 		}
-		if (nextY >= 0 && nextY + height < Tks.HEIGHT - 50) {
+		if ((nextY >= 0 && nextY + height < Tks.HEIGHT - 50) || devMode) {
 			position.y = nextY;
 		}
 
@@ -61,6 +62,10 @@ public class Ship {
 		if (state > 2) {
 			world.getBullet().add(new Bullet(x, y-h, world));
 		}
+	}
+	
+	public void enebleDevMode() {
+		this.devMode = true;
 	}
 
 }
