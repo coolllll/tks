@@ -5,8 +5,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ship {
-	public static int width = 61;
-	public static int height = 50;
+	public static int width = 51;
+	public static int height = 35;
 	private int speed = 5;
 	private int state = 1;
 	private Vector2 position;
@@ -27,8 +27,14 @@ public class Ship {
 	}
 
 	public void move(int dir) {
-		position.x += speed * DIR_OFFSETS[dir][0];
-		position.y += speed * DIR_OFFSETS[dir][1];
+		float nextX = position.x + speed * DIR_OFFSETS[dir][0];
+		float nextY = position.y += speed * DIR_OFFSETS[dir][1];
+		if (nextX >= 0 && nextX + width < Tks.WIDTH - Boss.width - 20) {
+			position.x = nextX;
+		}
+		if (nextY >= 0 && nextY + height < Tks.HEIGHT - 50) {
+			position.y = nextY;
+		}
 
 	}
 	

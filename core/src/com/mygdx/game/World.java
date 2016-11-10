@@ -10,6 +10,7 @@ public class World {
 	private List<BossBullet> bossBullet;
 	private List<PowerUp> powerUp;
 	private Boss boss;
+	public int gameOver = 0;
 
 	public World(Tks tks) {
 		this.tks = tks;

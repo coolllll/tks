@@ -8,6 +8,9 @@ public class BossBullet {
 	private int speedY;
 	private World world;
 	private int bulletType;
+	private Ship player;
+	public static int width = 20;
+	public static int height = 20;
 
 	public BossBullet(float x, float y,int spx,int spy,int type, World world) {
 		position = new Vector2(x, y);
@@ -15,6 +18,7 @@ public class BossBullet {
 		speedY = spy;
 		bulletType = type;
 		this.world = world;
+		player = world.getShip();
 	}
 
 	public void update() {
@@ -36,5 +40,14 @@ public class BossBullet {
 	
 	public void bounce () {
 		speedY *= -1;
+	}
+	
+	public boolean isHitPlayer() {
+		float x = position.x + width/2;
+		float y = position.y + height/2;
+		return x > player.getPosition().x
+				&& x < player.getPosition().x+Ship.width
+				&& y > player.getPosition().y
+				&& y < player.getPosition().y+Ship.height;
 	}
 }

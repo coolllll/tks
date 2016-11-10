@@ -23,6 +23,9 @@ public class WorldRenderer {
 	private Texture rect;
 	private Texture bossBulletPic;
 	private Texture powerUpPic;
+	private Texture gameOverPic;
+	private Texture gameClearPic;
+	private Texture pausePic;
 	private List<BossBullet> bossBullet;
 	private List<Bullet> bullet;
 	private List<PowerUp> powerUp;
@@ -39,6 +42,9 @@ public class WorldRenderer {
 		rect = new Texture("Red.png");
 		bossBulletPic = new Texture("BossBullet.png");
 		powerUpPic = new Texture("s.png");
+		gameOverPic = new Texture("gameover.png");
+		gameClearPic = new Texture("gameclear.png");
+		pausePic = new Texture("pause.png");
 	}
 
 	public void render() {
@@ -50,7 +56,7 @@ public class WorldRenderer {
 			batch.draw(bulletPic, i.getPosition().x, i.getPosition().y);
 		}
 		bossBullet = world.getBossBullet();
-		for(BossBullet i : bossBullet) {
+		for (BossBullet i : bossBullet) {
 			batch.draw(bossBulletPic, i.getPosition().x, i.getPosition().y);
 		}
 		powerUp = world.getPowerUp();
@@ -63,6 +69,13 @@ public class WorldRenderer {
 		batch.draw(bossPic, pos.x, pos.y);
 		batch.draw(rect, 50, Tks.HEIGHT - 50, (Tks.WIDTH - 100) * (world.getBoss().getHp() / Boss.maxHp), 30);
 		font.draw(batch, "" + (int) world.getBoss().getHp() + "/" + (int) Boss.maxHp, Tks.WIDTH / 2, Tks.HEIGHT - 30);
+		if (world.gameOver == 1) {
+			batch.draw(gameOverPic, 0, 0);
+		} else if (world.gameOver == 2) {
+			batch.draw(gameClearPic, 0, 0);
+		} else if (world.gameOver == 3) {
+			batch.draw(pausePic, 0, 0);
+		}
 		batch.end();
 	}
 }

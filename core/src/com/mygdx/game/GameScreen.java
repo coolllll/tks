@@ -18,6 +18,7 @@ public class GameScreen extends ScreenAdapter {
 	private List<PowerUp> powerUp;
 	private int bulletShootDelay = 10;
 	private int powerUpDelay = 1000;
+	private int pauseDelay = 5;
 	private Boss boss;
 	private Random rand;
 
@@ -44,11 +45,26 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void update() {
+		if(world.gameOver > 0) {
+			if (world.gameOver == 3 && Gdx.input.isKeyPressed(Keys.ENTER) && pauseDelay == 0) {
+				world.gameOver = 0;
+				pauseDelay = 5;
+			} else if (pauseDelay > 0) {
+				pauseDelay--;
+			}
+			return;
+		}
 		updateShip();
 		updateBoss();
 		updatePowerUp();
 		updateBullet();
 		updateBossBullet();
+		if (Gdx.input.isKeyPressed(Keys.ENTER) && pauseDelay == 0) {
+			world.gameOver = 3;
+			pauseDelay = 5;
+		} else if (pauseDelay > 0) {
+			pauseDelay--;
+		}
 	}
 
 	private void updateShip() {
@@ -90,6 +106,9 @@ public class GameScreen extends ScreenAdapter {
 		boss.changeState();
 		boss.move();
 		boss.shoot();
+		if(boss.getHp() == 0) {
+			world.gameOver = 2;
+		}
 	}
 	
 	private void updateBossBullet() {
@@ -97,6 +116,11 @@ public class GameScreen extends ScreenAdapter {
 			bossBullet.get(i).update();
 			if(bossBullet.get(i).hitHoriontalEdge()) {
 				bossBullet.get(i).bounce();
+			}
+			if(bossBullet.get(i).isHitPlayer()) {
+				bossBullet.remove(i);
+				world.gameOver = 1;
+				continue;
 			}
 			if(bossBullet.get(i).hitVerticalEdge()) {
 				bossBullet.remove(i);
