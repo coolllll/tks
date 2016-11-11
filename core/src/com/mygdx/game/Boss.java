@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Boss {
 	private Vector2 position;
 	private float hp;
-	public static float maxHp = 150;
+	public static float maxHp = 200;
 	public static int width = 155;
 	public static int height = 117;
 	public static float speed = 3;
@@ -73,7 +73,7 @@ public class Boss {
 			if (n >= 2) {
 				pattern3();
 			}
-			delay = 60;
+			delay = 70;
 		} else {
 			delay--;
 		}
@@ -93,7 +93,7 @@ public class Boss {
 			float x = this.position.x;
 			float y = 5 + 30 * (i + start);
 			int sy = 0;
-			int sx = 3;
+			int sx = 4;
 			world.getBossBullet().add(new BossBullet(x, y, sx, sy, 0, world));
 		}
 	}

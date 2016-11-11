@@ -40,13 +40,13 @@ public class Ship {
 	}
 	
 	public void increaseState() {
-		if (state < 3) {
+		if (state < 4) {
 			state++;
 		}
 	}
 	
 	public void increaseSpeed() {
-		if (speed < 8) {
+		if (speed < 9) {
 			speed++;
 		}
 	}
@@ -61,6 +61,10 @@ public class Ship {
 		}
 		if (state > 2) {
 			world.getBullet().add(new Bullet(x, y-h, world));
+		}
+		if (state > 3) {
+			world.getBullet().add(new Bullet(x, y-2*h, world));
+			world.getBullet().add(new Bullet(x, y+2*h, world));
 		}
 	}
 	

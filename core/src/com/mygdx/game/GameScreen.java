@@ -17,7 +17,7 @@ public class GameScreen extends ScreenAdapter {
 	private List<BossBullet> bossBullet;
 	private List<PowerUp> powerUp;
 	private int bulletShootDelay = 10;
-	private int powerUpDelay = 1000;
+	private int powerUpDelay = 800;
 	private int pauseDelay = 5;
 	private int devModeProtection = 0;
 	private int devModeCheckDelay = 5;
@@ -128,7 +128,7 @@ public class GameScreen extends ScreenAdapter {
 			int sy = rand.nextInt(11) - 5;
 			int sx = rand.nextInt(5) + 3;
 			powerUp.add(new PowerUp(x, y, sx, sy, world));
-			powerUpDelay = 1000;
+			powerUpDelay = 800;
 		} else {
 			powerUpDelay--;
 		}
@@ -150,7 +150,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void pauseCheck() {
-		if (Gdx.input.isKeyPressed(Keys.ENTER) && pauseDelay == 0) {
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) && pauseDelay == 0) {
 			world.gameOver = 3;
 			pauseDelay = 5;
 		} else if (pauseDelay > 0) {
@@ -159,7 +159,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void unPauseCheck() {
-		if (world.gameOver == 3 && Gdx.input.isKeyPressed(Keys.ENTER) && pauseDelay == 0) {
+		if (world.gameOver == 3 && Gdx.input.isKeyJustPressed(Keys.ENTER) && pauseDelay == 0) {
 			world.gameOver = 0;
 			this.devModeProtection = 0;
 			pauseDelay = 5;
