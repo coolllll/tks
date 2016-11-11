@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Boss {
 	private Vector2 position;
 	private float hp;
-	public static float maxHp = 200;
+	public static float maxHp = 150;
 	public static int width = 155;
 	public static int height = 117;
 	public static float speed = 3;
@@ -18,7 +18,7 @@ public class Boss {
 
 	public Boss(World world) {
 		this.world = world;
-		position = new Vector2(Tks.WIDTH - width - 20, (Tks.HEIGHT - 50) / 2);
+		position = new Vector2(Tks.WIDTH - width - 20, (Tks.HEIGHT - Tks.upperGap) / 2);
 		this.hp = maxHp;
 		rand = new Random();
 	}
@@ -38,7 +38,7 @@ public class Boss {
 	}
 
 	public boolean isHitEdge() {
-		if (position.y <= 0 || (position.y + height) >= Tks.HEIGHT - 50) {
+		if (position.y <= 0 || (position.y + height) >= Tks.HEIGHT - Tks.upperGap) {
 			return true;
 		} else {
 			return false;

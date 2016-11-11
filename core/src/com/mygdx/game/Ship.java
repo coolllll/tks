@@ -33,7 +33,7 @@ public class Ship {
 		if ((nextX >= 0 && nextX + width < Tks.WIDTH - Boss.width - 20) || devMode) {
 			position.x = nextX;
 		}
-		if ((nextY >= 0 && nextY + height < Tks.HEIGHT - 50) || devMode) {
+		if ((nextY >= 0 && nextY + height < Tks.HEIGHT - Tks.upperGap) || devMode) {
 			position.y = nextY;
 		}
 
@@ -70,6 +70,10 @@ public class Ship {
 	
 	public void enebleDevMode() {
 		this.devMode = true;
+	}
+	
+	public boolean checkDevMode() {
+		return this.devMode;
 	}
 
 }

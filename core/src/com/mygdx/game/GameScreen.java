@@ -19,7 +19,7 @@ public class GameScreen extends ScreenAdapter {
 	private int bulletShootDelay = 10;
 	private int powerUpDelay = 800;
 	private int pauseDelay = 5;
-	private int devModeProtection = 0;
+	public static int devModeProtection = 0;
 	private int devModeCheckDelay = 5;
 	private Boss boss;
 	private Random rand;
@@ -107,7 +107,7 @@ public class GameScreen extends ScreenAdapter {
 	private void updateBossBullet() {
 		for (int i = 0; i < bossBullet.size(); i++) {
 			bossBullet.get(i).update();
-			if (bossBullet.get(i).hitHoriontalEdge()) {
+			if (bossBullet.get(i).hitHorisontalEdge()) {
 				bossBullet.get(i).bounce();
 			}
 			if (bossBullet.get(i).isHitPlayer()) {
@@ -124,7 +124,7 @@ public class GameScreen extends ScreenAdapter {
 	private void updatePowerUp() {
 		if (powerUpDelay <= 0) {
 			float x = Tks.WIDTH;
-			float y = rand.nextInt(Tks.HEIGHT - 50 - PowerUp.height);
+			float y = rand.nextInt(Tks.HEIGHT - Tks.upperGap - PowerUp.height);
 			int sy = rand.nextInt(11) - 5;
 			int sx = rand.nextInt(5) + 3;
 			powerUp.add(new PowerUp(x, y, sx, sy, world));
@@ -134,7 +134,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		for (int i = 0; i < powerUp.size(); i++) {
 			powerUp.get(i).update();
-			if (powerUp.get(i).hitHoriontalEdge()) {
+			if (powerUp.get(i).hitHorisontalEdge()) {
 				powerUp.get(i).bounce();
 			}
 			if (powerUp.get(i).isHitPlayer()) {
@@ -173,23 +173,25 @@ public class GameScreen extends ScreenAdapter {
 			ship.enebleDevMode();
 		}
 		if (this.devModeCheckDelay == 0) {
-			if (this.devModeProtection == 0 && Gdx.input.isKeyPressed(Keys.UP)) {
-				this.devModeProtection = 1;
-			} else if (this.devModeProtection == 1 && Gdx.input.isKeyPressed(Keys.UP)) {
-				this.devModeProtection = 2;
-			} else if (this.devModeProtection == 2 && Gdx.input.isKeyPressed(Keys.DOWN)) {
-				this.devModeProtection = 3;
-			} else if (this.devModeProtection == 3 && Gdx.input.isKeyPressed(Keys.DOWN)) {
-				this.devModeProtection = 4;
-			} else if (this.devModeProtection == 4 && Gdx.input.isKeyPressed(Keys.LEFT)) {
-				this.devModeProtection = 5;
-			} else if (this.devModeProtection == 5 && Gdx.input.isKeyPressed(Keys.RIGHT)) {
-				this.devModeProtection = 6;
-			} else if (this.devModeProtection == 6 && Gdx.input.isKeyPressed(Keys.LEFT)) {
-				this.devModeProtection = 7;
-			} else if (this.devModeProtection == 7 && Gdx.input.isKeyPressed(Keys.RIGHT)) {
-				this.devModeProtection = 8;
-			}
+			if (devModeProtection == 0 && Gdx.input.isKeyPressed(Keys.UP)) {
+				devModeProtection = 1;
+			} else if (devModeProtection == 1 && Gdx.input.isKeyPressed(Keys.UP)) {
+				devModeProtection = 2;
+			} else if (devModeProtection == 2 && Gdx.input.isKeyPressed(Keys.DOWN)) {
+				devModeProtection = 3;
+			} else if (devModeProtection == 3 && Gdx.input.isKeyPressed(Keys.DOWN)) {
+				devModeProtection = 4;
+			} else if (devModeProtection == 4 && Gdx.input.isKeyPressed(Keys.LEFT)) {
+				devModeProtection = 5;
+			} else if (devModeProtection == 5 && Gdx.input.isKeyPressed(Keys.RIGHT)) {
+				devModeProtection = 6;
+			} else if (devModeProtection == 6 && Gdx.input.isKeyPressed(Keys.LEFT)) {
+				devModeProtection = 7;
+			} else if (devModeProtection == 7 && Gdx.input.isKeyPressed(Keys.RIGHT)) {
+				devModeProtection = 8;
+			} else if (Gdx.input.isKeyPressed(-1)) {
+				devModeProtection = 0;
+			} 
 			this.devModeCheckDelay = 5;
 		} else if (this.devModeCheckDelay > 0) {
 			this.devModeCheckDelay--;

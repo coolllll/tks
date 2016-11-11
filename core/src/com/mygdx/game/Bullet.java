@@ -2,28 +2,18 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Bullet {
-	private Vector2 position;
+public class Bullet extends AllBullet {
+	/*private Vector2 position;
 	private int speed = 10;
 	private Boss boss;
-	private World world;
+	private World world;*/
 
 	public Bullet(float x, float y, World world) {
 		position = new Vector2(x, y);
 		this.world = world;
 		boss = world.getBoss();
-	}
-
-	public void update() {
-		position.x += speed;
-	}
-
-	public Vector2 getPosition() {
-		return position;
-	}
-
-	public boolean hitEdge() {
-		return position.x >= Tks.WIDTH;
+		speedX = 10;
+		speedY = 0;
 	}
 
 	public boolean hitBoss() {

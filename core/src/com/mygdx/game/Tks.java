@@ -12,6 +12,7 @@ public class Tks extends Game {
 	Texture img;
 	public static final int HEIGHT = 680;
 	public static final int WIDTH = 1200;
+	public static final int upperGap = 50;
 
 	@Override
 	public void create() {
