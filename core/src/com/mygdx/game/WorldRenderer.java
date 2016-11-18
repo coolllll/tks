@@ -51,7 +51,7 @@ public class WorldRenderer {
 		SpriteBatch batch = Tks.batch;
 		batch.begin();
 		batch.draw(bg, 0, 0, Tks.WIDTH, Tks.HEIGHT);
-		
+
 		this.bulletRender();
 		this.powerUpRender();
 		this.playerRender();
@@ -59,52 +59,54 @@ public class WorldRenderer {
 		this.healthBarRender();
 		if (world.gameOver == 1) {
 			batch.draw(gameOverPic, 0, 0);
+			//font.draw(batch, ""+world.gameOver, 10, 30);
 		} else if (world.gameOver == 2) {
 			batch.draw(gameClearPic, 0, 0);
 		} else if (world.gameOver == 3) {
 			batch.draw(pausePic, 0, 0);
-			if(world.getShip().checkDevMode()) {
+			if (world.getShip().checkDevMode()) {
 				font.draw(batch, "dev mode : ON", 10, 30);
 			} else {
-				font.draw(batch, "dev mode : OFF ("+GameScreen.devModeProtection+")", 10, 30);
+				font.draw(batch, "dev mode : OFF (" + GameScreen.devModeProtection + ")", 10, 30);
 			}
 		}
 		batch.end();
 	}
-	
+
 	public void bulletRender() {
-		
+
 		bullet = world.getBullet();
 		for (Bullet i : bullet) {
 			batch.draw(bulletPic, i.getPosition().x, i.getPosition().y);
 		}
-		
+
 		bossBullet = world.getBossBullet();
 		for (BossBullet i : bossBullet) {
 			batch.draw(bossBulletPic, i.getPosition().x, i.getPosition().y);
 		}
 	}
-	
+
 	public void powerUpRender() {
-		
+
 		powerUp = world.getPowerUp();
 		for (PowerUp i : powerUp) {
 			batch.draw(powerUpPic, i.getPosition().x, i.getPosition().y);
 		}
 	}
-	
+
 	public void playerRender() {
 		Vector2 pos = world.getShip().getPosition();
 		batch.draw(shipPic, pos.x, pos.y);
 	}
-	
+
 	public void bossRender() {
 		Vector2 pos = world.getBoss().getPosition();
 		batch.draw(bossPic, pos.x, pos.y);
 	}
-	
+
 	public void healthBarRender() {
-		batch.draw(rect, Tks.upperGap, Tks.HEIGHT - Tks.upperGap, (Tks.WIDTH - 100) * (world.getBoss().getHp() / Boss.maxHp), 30);
+		batch.draw(rect, Tks.upperGap, Tks.HEIGHT - Tks.upperGap,
+				(Tks.WIDTH - 100) * (world.getBoss().getHp() / Boss.maxHp), 30);
 		font.draw(batch, "" + (int) world.getBoss().getHp() + "/" + (int) Boss.maxHp, Tks.WIDTH / 2, Tks.HEIGHT - 30);
 	}
 }

@@ -10,15 +10,13 @@ public class World {
 	private List<BossBullet> bossBullet;
 	private List<PowerUp> powerUp;
 	private Boss boss;
-	public int gameOver = 0;
+	private SoundFX sound;
+	public int gameOver;
 
 	public World(Tks tks) {
 		this.tks = tks;
-		ship = new Ship(20, 20,this);
-		boss = new Boss(this);
-		bullet = new ArrayList<Bullet>();
-		bossBullet = new ArrayList<BossBullet>();
-		powerUp = new ArrayList<PowerUp>();
+		sound = new SoundFX();
+		setData();
 	}
 
 	public Ship getShip() {
@@ -39,5 +37,33 @@ public class World {
 
 	public Boss getBoss() {
 		return boss;
+	}
+	
+	public SoundFX getSound() {
+		return sound;
+	}
+	
+	public void resetData() {
+		ship = null;
+		boss = null;
+		bullet = null;
+		bossBullet = null;
+		powerUp = null;
+		sound.stopBgm();
+	}
+	
+	public void setData() {
+		ship = new Ship(20, 20,this);
+		boss = new Boss(this);
+		bullet = new ArrayList<Bullet>();
+		bossBullet = new ArrayList<BossBullet>();
+		powerUp = new ArrayList<PowerUp>();
+		sound.playBgm();
+		gameOver = 0;
+	}
+	
+	public void resetGame() {
+		resetData();
+		setData();
 	}
 }

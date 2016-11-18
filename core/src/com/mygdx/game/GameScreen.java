@@ -23,15 +23,12 @@ public class GameScreen extends ScreenAdapter {
 	private int devModeCheckDelay = 5;
 	private Boss boss;
 	private Random rand;
+	private SoundFX sound;
 
 	public GameScreen(Tks tks) {
 		this.tks = tks;
 		world = new World(tks);
-		ship = world.getShip();
-		bullet = world.getBullet();
-		boss = world.getBoss();
-		bossBullet = world.getBossBullet();
-		powerUp = world.getPowerUp();
+		getData();
 		rand = new Random();
 		worldRenderer = new WorldRenderer(tks, world);
 	}
@@ -48,6 +45,10 @@ public class GameScreen extends ScreenAdapter {
 
 	private void update() {
 		if (world.gameOver > 0) {
+			if(world.gameOver < 3) {
+				sound.stopBgm();
+			}
+			resetCheck();
 			unPauseCheck();
 			devModeEnteringCheck();
 			return;
@@ -72,7 +73,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		if (Gdx.input.isKeyPressed(Keys.SPACE) && bulletShootDelay <= 0) {
 			ship.shoot();
-			bulletShootDelay = 10;
+			sound.playShootSound();
+			bulletShootDelay = 20;
 		} else if (bulletShootDelay >= 0) {
 			bulletShootDelay--;
 		}
@@ -84,6 +86,7 @@ public class GameScreen extends ScreenAdapter {
 			if (bullet.get(i).hitBoss()) {
 				boss.hitByBullet();
 				bullet.remove(i);
+				i--;
 				continue;
 			}
 			if (bullet.get(i).hitEdge()) {
@@ -113,6 +116,7 @@ public class GameScreen extends ScreenAdapter {
 			if (bossBullet.get(i).isHitPlayer()) {
 				bossBullet.remove(i);
 				world.gameOver = 1;
+				i--;
 				continue;
 			}
 			if (bossBullet.get(i).hitVerticalEdge()) {
@@ -168,6 +172,16 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 	
+	private void resetCheck() {
+		if(Gdx.input.isKeyJustPressed(Keys.ENTER) && world.gameOver < 3) {
+			world.resetGame();
+			getData();
+		}
+		else if(world.gameOver < 3) {
+			sound.stopBgm();
+		}
+	}
+	
 	private void devModeEnteringCheck() {
 		if (this.devModeProtection == 8) {
 			ship.enebleDevMode();
@@ -196,5 +210,14 @@ public class GameScreen extends ScreenAdapter {
 		} else if (this.devModeCheckDelay > 0) {
 			this.devModeCheckDelay--;
 		}
+	}
+	
+	private void getData() {
+		ship = world.getShip();
+		bullet = world.getBullet();
+		boss = world.getBoss();
+		bossBullet = world.getBossBullet();
+		powerUp = world.getPowerUp();
+		sound = world.getSound();
 	}
 }

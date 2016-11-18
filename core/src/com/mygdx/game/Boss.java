@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Boss {
 	private Vector2 position;
 	private float hp;
-	public static float maxHp = 150;
+	public static float maxHp = 100;
 	public static int width = 155;
 	public static int height = 117;
 	public static float speed = 3;
