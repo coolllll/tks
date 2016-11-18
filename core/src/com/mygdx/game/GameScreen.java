@@ -66,7 +66,8 @@ public class GameScreen extends ScreenAdapter {
 			ship.move(Ship.DIRECTION_LEFT);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			ship.move(Ship.DIRECTION_RIGHT);
-		} else if (Gdx.input.isKeyPressed(Keys.UP)) {
+		}
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
 			ship.move(Ship.DIRECTION_UP);
 		} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 			ship.move(Ship.DIRECTION_DOWN);
@@ -91,6 +92,7 @@ public class GameScreen extends ScreenAdapter {
 			}
 			if (bullet.get(i).hitEdge()) {
 				bullet.remove(i);
+				i--;
 			}
 		}
 	}
@@ -104,6 +106,7 @@ public class GameScreen extends ScreenAdapter {
 		boss.shoot();
 		if (boss.getHp() == 0) {
 			world.gameOver = 2;
+			sound.playVictory();
 		}
 	}
 
@@ -121,6 +124,7 @@ public class GameScreen extends ScreenAdapter {
 			}
 			if (bossBullet.get(i).hitVerticalEdge()) {
 				bossBullet.remove(i);
+				i--;
 			}
 		}
 	}
@@ -171,17 +175,15 @@ public class GameScreen extends ScreenAdapter {
 			pauseDelay--;
 		}
 	}
-	
+
 	private void resetCheck() {
-		if(Gdx.input.isKeyJustPressed(Keys.ENTER) && world.gameOver < 3) {
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) && world.gameOver < 3) {
+			sound.stopVictory();
 			world.resetGame();
 			getData();
 		}
-		else if(world.gameOver < 3) {
-			sound.stopBgm();
-		}
 	}
-	
+
 	private void devModeEnteringCheck() {
 		if (this.devModeProtection == 8) {
 			ship.enebleDevMode();
@@ -205,13 +207,13 @@ public class GameScreen extends ScreenAdapter {
 				devModeProtection = 8;
 			} else if (Gdx.input.isKeyPressed(-1)) {
 				devModeProtection = 0;
-			} 
+			}
 			this.devModeCheckDelay = 5;
 		} else if (this.devModeCheckDelay > 0) {
 			this.devModeCheckDelay--;
 		}
 	}
-	
+
 	private void getData() {
 		ship = world.getShip();
 		bullet = world.getBullet();
